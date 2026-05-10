@@ -13,10 +13,25 @@
             align-items: center;
             overflow: hidden;
         }
-        canvas { display: block; }
+        button {
+            color:aqua;
+            background-color: #000;
+            border-color: rgb(137, 137, 205);
+            border-radius: 2px;
+            padding: 3px;
+            font-size: larger;
+            font-weight: bolder;
+            cursor: pointer;
+        }
+        canvas { 
+            display: block; 
+        }
     </style>
 </head>
 <body>
+    <button id="reveal">Reveal walls (5s)</button>    
+    <button onclick="window.location.reload()">New Game</button>
+
     <script type="module" src="./game.js"></script>
 </body>
 </html>

@@ -18,6 +18,19 @@ export default class GameScene extends Scene {
         this.physics.add.collider(this.lia.sprite, manager.getWallGroup(this, 'gk-tile'))
 
         // GK logic
+        // ==========================================
+        // 1. THE GOAL SETUP (Top-Left)
+        // ==========================================
+        // Creates an invisible 32x32 square at X:50, Y:50. 
+        // Adjust these coordinates if your top-left maze exit is slightly different.
+        this.goal = this.add.zone(50, 50, 32, 32); 
+        this.physics.add.existing(this.goal, true); // true = static body
+
+        // Listen for when Lia touches the goal
+        this.physics.add.overlap(this.lia.sprite, this.goal, this.handleVictory, null, this);
+
+
+
         const htmlButton = document.getElementById("reveal");
         let revealsLeft = 3;
         let isRevealing = false;
@@ -62,6 +75,32 @@ export default class GameScene extends Scene {
 
             }, 5000);
         })
+    }
+
+    handleVictory(playerSprite, goalZone) {
+        // Stop the overlap event from firing 60 times a second
+        this.physics.world.disableBody(goalZone.body);
+
+        // Freeze Lia in place so the player can't walk off-screen
+        this.physics.pause();
+
+        // reveal map
+        this.physics.world.createDebugGraphic();        
+
+        // 🎉 TRIGGER THE CONFETTI 🎉
+        if (typeof confetti === 'function') {
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6 },
+                zIndex: 1000 // Ensures it shoots OVER your left-side UI panel
+            });
+        }
+
+        const htmlButton = document.getElementById("reveal");
+        htmlButton.style.backgroundColor = "#00ffcc";
+        htmlButton.style.color = "black";
+        htmlButton.innerText = "YOU ESCAPED!";        
     }
 
     update() {

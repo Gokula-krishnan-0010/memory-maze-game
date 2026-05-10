@@ -1,77 +1,42 @@
-# spiderman-game
+# Memory Maze 
 
-A Phaser game built with [@tialops/maki](https://www.npmjs.com/package/@tialops/maki).
+> In Memory Maze, your only weapon is your mind! You get exactly five second per reveal to memorize the pixel labyrinth before the lights cut out. Navigate blindly, manage your 3 limited reveals, and escape!
 
-## What You Get
+## 🎮 How to Play
 
-- A ready-to-run Phaser game setup
-- A starter scene: `scenes/GameScene.js`
-- A starter sprite: `sprites/lia.png`
-- Main entry file: `game.js`
+1. **The Flash:** At the start of the level, the maze layout is visible for exactly 1 second.
+2. **The Dark:** The walls disappear into pure blackness. Navigate blindly using your spatial memory!
+3. **The Lifeline:** Lost? Click the "Reveal Map" button. It flashes the map back on for 5 seconds—but you only get **3 chances** per game.
+4. **The Escape:** Reach the top-left corner to trigger the victory confetti!
 
-## Very Simple Flow
+## 🚀 Getting Started
 
-1. Run dev server
+To run the game locally, ensure you have [Node.js](https://nodejs.org/) installed.
 
-```bash
-maki dev
-```
+1. Clone this repository to your local machine.
+   ```bash
+   git clone https://github.com/Gokula-krishnan-0010/memory-maze-game.git
+   cd memory-maze-game
+   ```
+3. Install the dependencies:
+   ```bash
+   npm install
+   ```
+4. Start the Maki development server and play the game:
+   ```bash
+   npx maki dev
+   ```
 
-2. Add a scene
+## 🛠️ Tech Stack
 
-Create `scenes/MenuScene.js`:
+* **Game Engine:** [Phaser 3](https://phaser.io/)
+* **Framework:** [@tialops/maki](https://tial-ops.github.io/maki_tuto/) (A lightweight Phaser wrapper optimized for top-down pixel RPGs)
+* **UI & Effects:** Standard HTML/CSS DOM overlays, featuring `canvas-confetti` for victory juice.
 
-```js
-import { Scene } from '@tialops/maki'
+## 🏆 Behind the Scenes
 
-export default class MenuScene extends Scene {
-    preload() { super.preload() }
-    create()  { super.create()  }
-    update()  {}
-}
-```
+*Built for a Hackathon/Game Jam.*
 
-Then register it in `game.js`:
+We wanted to take a universally understood genre—the top-down 2D pixel maze—and strip away the player's greatest asset: their sight. 
 
-```js
-import Phaser from 'phaser'
-import GameScene from './scenes/GameScene.js'
-import MenuScene from './scenes/MenuScene.js'
-
-new Phaser.Game({
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    backgroundColor: '#1a1a2e',
-    physics: { default: 'arcade', arcade: { debug: false } },
-    scene: [MenuScene, GameScene]
-})
-```
-
-3. Create a tilemap
-
-```bash
-maki tilemap
-```
-
-| Prompt | Notes |
-|--------|-------|
-| Tile size | 8 / 16 / 32 / 64 px or custom |
-| Map name | saved as `assets/maps/<name>.json` |
-| Load existing? | reloads a previously saved map to edit |
-| Map width (tiles) | defaults to canvas width ÷ tile size |
-| Map height (tiles) | defaults to canvas height ÷ tile size |
-
-Canvas size is read from `maki.config.js` so the default dimensions always match your game.
-Paint tiles, mark collision areas, then click **Export**.
-
-4. Add your own sprite
-
-- Put your spritesheet PNG inside `sprites/`
-- Run:
-
-```bash
-maki new sprite
-```
-
-This creates `maki.config.js` based on your sprite layout.
+Instead of writing complex visibility masks, I engineered a clever solution using the engine's physics debug tools. By toggling Phaser's `arcade.physics` bounding boxes on and off, we simulated the map flashing in the dark while ensuring all collision boundaries remained perfectly intact. This allowed us to build an incredibly lightweight, performant web game.

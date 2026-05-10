@@ -13,24 +13,44 @@
             align-items: center;
             overflow: hidden;
         }
-        button {
-            color:aqua;
-            background-color: #000;
-            border-color: rgb(137, 137, 205);
-            border-radius: 2px;
-            padding: 3px;
-            font-size: larger;
-            font-weight: bolder;
-            cursor: pointer;
-        }
         canvas { 
             display: block; 
         }
     </style>
 </head>
 <body>
-    <button id="reveal">Reveal walls (5s)</button>    
-    <button onclick="window.location.reload()">New Game</button>
+    <div id="game-wrapper" style="position: relative; width: 800px; height: 600px; overflow: hidden; background: #000;">
+    
+    <!-- The Game Canvas will be injected here by Phaser -->
+    <div id="game-container"></div>
+
+    <!-- The UI Overlay (Gameplay Buttons) -->
+    <div id="gameplay-ui" style="display: none; position: absolute; top: 10px; left: 10px; z-index: 10;">
+        <button id="reveal-btn" class="game-btn">Reveal Walls (3 left)</button>
+    </div>
+
+    <!-- The Main Menu & Rules Overlay -->
+    <div id="main-menu" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 15, 25, 0.95); z-index: 20; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; font-family: sans-serif;">
+        <h1 style="font-size: 3rem; margin-bottom: 10px; color: #00ffcc;">MEMORY MAZE</h1>
+        
+        <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 8px; max-width: 500px; margin-bottom: 30px;">
+            <h2 style="margin-bottom: 15px; color: #ffaa00;">How to Play:</h2>
+            <ul style="line-height: 1.6; margin-left: 20px;">
+                <li>The maze layout will be visible for exactly <strong>5 second</strong> when the <strong>Reveal Walls</strong> button is clicked.</li>
+                <li>Memorize the path to the exit!</li>
+                <li>Once the darkness falls, use the Arrow Keys to navigate.</li>
+                <li>If you get lost, click <strong>Reveal Walls</strong>. It lasts 5 seconds, but you only get <strong>3 chances</strong> per level.</li>
+            </ul>
+        </div>
+
+        <button onclick="window.location.reload()" style="margin-bottom: 5px; padding: 15px 30px; font-size: 1.5rem; background: #00ffcc; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: transform 0.1s;">
+            NEW GAME
+        </button>
+        <button id="reveal" style="margin-top: 5px; padding: 15px 30px; font-size: 1.5rem; background: #00ffcc; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: transform 0.1s;">
+            REVEAL WALLS
+        </button>
+    </div>
+</div>
 
     <script type="module" src="./game.js"></script>
 </body>

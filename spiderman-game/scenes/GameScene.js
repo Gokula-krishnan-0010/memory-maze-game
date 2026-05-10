@@ -19,17 +19,24 @@ export default class GameScene extends Scene {
 
         // GK logic
         const htmlButton = document.getElementById("reveal");
-        let revealTimer = null;
+        let revealsLeft = 3;
+        let isRevealing = false;
+        htmlButton.innerText = `Reveal walls (${revealsLeft} left)`;
+
         htmlButton.addEventListener('click', () => {
+            if(revealsLeft <= 0 || isRevealing)
+                return;
+            revealsLeft--;
+            isRevealing = true;
+
+            htmlButton.style.color = "orange";
+            htmlButton.style.cursor = "wait";
+            htmlButton.innerText = `Revealing... (${revealsLeft} left)`;
+
             if(!this.physics.world.debugGraphic) {
                 this.physics.world.createDebugGraphic();
             }
-
             this.physics.world.drawDebug = true;
-            htmlButton.style.color = 'red';
-            if (revealTimer !== null) {
-                clearTimeout(revealTimer);
-            }
 
             // 3. Set the 5-second (5000ms) countdown
             revealTimer = setTimeout(() => {
@@ -39,9 +46,19 @@ export default class GameScene extends Scene {
                 
                 // Clear the frozen neon lines from the screen
                 this.physics.world.debugGraphic.clear(); 
-                
-                htmlBtn.style.color = "aqua"; // Reset visual feedback
-                revealTimer = null; // Reset the timer variable
+
+                // 6. Restore the UI (if they still have charges left)
+                isRevealing = false;
+                if (revealsLeft > 0) {
+                    htmlButton.style.color = 'black';
+                    htmlButton.style.cursor = "pointer";
+                    htmlButton.innerText = `Reveal walls (${revealsLeft} left)`;
+                } else {
+                    // They used their last charge! Permanently disable it.
+                    htmlButton.style.backgroundColor = "grey";
+                    htmlButton.style.cursor = "not-allowed";
+                    htmlButton.innerText = "No Reveals Left";
+                }
 
             }, 5000);
         })

@@ -34,7 +34,7 @@ export default class GameScene extends Scene {
         const htmlButton = document.getElementById("reveal");
         let revealsLeft = 3;
         let isRevealing = false;
-        htmlButton.innerText = `Reveal walls (${revealsLeft} left)`;
+        htmlButton.innerText = `REVEAL WALLS (${revealsLeft} left)`;
 
         htmlButton.addEventListener('click', () => {
             if(revealsLeft <= 0 || isRevealing)
@@ -42,7 +42,7 @@ export default class GameScene extends Scene {
             revealsLeft--;
             isRevealing = true;
 
-            htmlButton.style.color = "orange";
+            htmlButton.style.color = "#2a2351";
             htmlButton.style.cursor = "wait";
             htmlButton.innerText = `Revealing... (${revealsLeft} left)`;
 

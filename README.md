@@ -3,9 +3,7 @@
 > In Memory Maze, your only weapon is your mind! You get exactly five second per reveal to memorize the pixel labyrinth before the lights cut out. Navigate blindly, manage your 3 limited reveals, and escape!
 > [Try it out!](https://memory-maze-game-sigma.vercel.app/)
 
-
-https://github.com/user-attachments/assets/41391386-3494-4fbf-8486-c344e22ed752
-
+https://github.com/user-attachments/assets/26494bfe-c8da-4788-9782-ea3bc6381579
 
 ## 🎮 How to Play
 
